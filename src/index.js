@@ -10,36 +10,25 @@ import { createStore } from 'redux';
 //   </React.StrictMode>
 // );
 
-const reducer = (state = 0, action) => {
-  if (action.type === 'DEC') {
-    return state - 1;
-  }
-
-  if (action.type === 'INC') {
-    return state + 1;
-  }
-
-  if (action.type === 'RND') {
-    return state + action.payload;
-  }
-
-  return state;
-};
+import reducer from './reducer';
+import { inc, dec, rnd } from './actions';
 
 const store = createStore(reducer);
 
+
+
 const count = document.getElementById('count');
 document.getElementById('inc').addEventListener('click', () => {
-  store.dispatch({ type: 'INC' });
+  store.dispatch(inc());
 });
 
 document.getElementById('dec').addEventListener('click', () => {
-  store.dispatch({ type: 'DEC' });
+  store.dispatch(dec());
 });
 
 document.getElementById('rnd').addEventListener('click', () => {
   const payload = Math.floor(Math.random() * 10);
-  store.dispatch({ type: 'RND', payload });
+  store.dispatch(rnd(payload));
 });
 
 const update = () => {
